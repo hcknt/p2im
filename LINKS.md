@@ -1,1 +1,7 @@
 - QEMU build script: https://github.com/xgandiaga/DRIVERS/tree/main
+- Papers, Firmwares
+  - https://github.com/RiS3-Lab/p2im
+  - https://github.com/aerosec/jetset
+  - https://github.com/MCUSec/uEmu
+  - https://github.com/fuzzware-fuzzer/fuzzware
+  - https://github.com/pr0me/safirefuzz-experiments/
