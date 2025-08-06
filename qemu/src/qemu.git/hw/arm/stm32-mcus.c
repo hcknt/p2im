@@ -688,6 +688,7 @@ static const STM32PartInfo stm32_mcus[] = {
 #endif
     {
         .name = TYPE_STM32F103RB, /* STM32F103x[8B] */
+        // Robot, Drone, Gateway, Reflow Oven
         .cortexm = {
             .flash_base = 0x08000000,
             .flash_size_kb = 128,
@@ -781,6 +782,7 @@ static const STM32PartInfo stm32_mcus[] = {
     },
     {
         .name = TYPE_STM32F429ZI,
+        // CNC, PLC
         .cortexm = {
             .flash_base = 0x08000000,
             .flash_size_kb = 2048,
@@ -795,6 +797,76 @@ static const STM32PartInfo stm32_mcus[] = {
             .core = &stm32f4_23_xxx_core, /* TODO: Add .stm32 */
         },
         .stm32 = &stm32f429xx /**/
+
+    },
+    {
+        .name = TYPE_STM32F103RE,
+        // 3Dprinter
+        .cortexm = {
+            .flash_base = 0x08000000,
+            .flash_size_kb = 256,
+
+            .sram_base = 0x20000000,
+            .sram_size_kb = 128,
+            .core = &stm32f4_23_xxx_core,
+        },
+        .stm32 = &stm32f429xx
+
+    },
+    {
+        .name = TYPE_STM32L431,
+        // LiteOS_IoT
+        .cortexm = {
+            .flash_base = 0x08000000,
+            .flash_size_kb = 256,
+
+            .sram_base = 0x20000000,
+            .sram_size_kb = 256,
+            .core = &stm32f4_23_xxx_core,
+        },
+        .stm32 = &stm32f429xx
+
+    },
+    {
+        .name = TYPE_STM32L432KC,
+        // Zepyhr_SocketCan
+        .cortexm = {
+            .flash_base = 0x08000000,
+            .flash_size_kb = 128,
+
+            .sram_base = 0x20000000,
+            .sram_size_kb = 64,
+            .core = &stm32f4_23_xxx_core,
+        },
+        .stm32 = &stm32f429xx
+
+    },
+    {
+        .name = TYPE_STM32L152XE,
+        // XML_Parser
+        .cortexm = {
+            .flash_base = 0x08000000,
+            .flash_size_kb = 256,
+
+            .sram_base = 0x20000000,
+            .sram_size_kb = 384,
+            .core = &stm32f4_23_xxx_core,
+        },
+        .stm32 = &stm32f429xx
+
+    },
+    {
+        .name = TYPE_STM32F429ZIT6U,
+        // utasker_MODBUS, utasker_USB
+        .cortexm = {
+            .flash_base = 0x08000000,
+            .flash_size_kb = 256,
+
+            .sram_base = 0x20000000,
+            .sram_size_kb = 256,
+            .core = &stm32f4_23_xxx_core,
+        },
+        .stm32 = &stm32f429xx
 
     },
     {
@@ -818,6 +890,7 @@ static const STM32PartInfo stm32_mcus[] = {
     },
     {
         .name = TYPE_SAM3X8E,
+        // Steering Control, Heat Press
         .cortexm = {
             .flash_base = 0x00080000,
             .flash_size_kb = 512,
@@ -839,6 +912,7 @@ static const STM32PartInfo stm32_mcus[] = {
     },
     {
         .name = TYPE_MK64FN1M0VLL12,
+        // Console
         .cortexm = {
             .flash_base = 0x0,
             .flash_size_kb = 1024,

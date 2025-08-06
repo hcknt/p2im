@@ -360,6 +360,126 @@ static QEMUMachine frdm_k64f_machine = {
     .desc = "FRDM-K64F board with MK64FN1M0VLL12 MCU",
     .init = frdm_k64f_board_init_callback };
 
+static void stm32f103re_board_init_callback(MachineState *machine)
+{
+    cm_board_greeting(machine);
+
+    {
+        Object *mcu = cm_object_new_mcu(machine, TYPE_STM32F103RE);
+
+        cm_object_property_set_int(mcu, 8000000, "hse-freq-hz");
+        cm_object_property_set_int(mcu, 32768, "lse-freq-hz");
+
+        cm_object_realize(mcu);
+    }
+
+    void *board_surface = cm_board_init_image("STM32F429I-Discovery.jpg",
+            cm_board_get_desc(machine));
+
+    Object *peripheral = cm_container_get_peripheral();
+}
+
+static QEMUMachine stm32f103re_machine = {
+    .name = "STM32F103RE",
+    .desc = "STM32F103RE Board for 3Dprinter",
+    .init = stm32f103re_board_init_callback };
+
+static void stm32l431_board_init_callback(MachineState *machine)
+{
+    cm_board_greeting(machine);
+
+    {
+        Object *mcu = cm_object_new_mcu(machine, TYPE_STM32L431);
+
+        cm_object_property_set_int(mcu, 8000000, "hse-freq-hz");
+        cm_object_property_set_int(mcu, 32768, "lse-freq-hz");
+
+        cm_object_realize(mcu);
+    }
+
+    void *board_surface = cm_board_init_image("STM32F429I-Discovery.jpg",
+            cm_board_get_desc(machine));
+
+    Object *peripheral = cm_container_get_peripheral();
+}
+
+static QEMUMachine stm32l431_machine = {
+    .name = "STM32L431",
+    .desc = "STM32L431 Board for LiteOS_IoT",
+    .init = stm32l431_board_init_callback };
+
+static void stm32l432kc_board_init_callback(MachineState *machine)
+{
+    cm_board_greeting(machine);
+
+    {
+        Object *mcu = cm_object_new_mcu(machine, TYPE_STM32L432KC);
+
+        cm_object_property_set_int(mcu, 8000000, "hse-freq-hz");
+        cm_object_property_set_int(mcu, 32768, "lse-freq-hz");
+
+        cm_object_realize(mcu);
+    }
+
+    void *board_surface = cm_board_init_image("STM32F429I-Discovery.jpg",
+            cm_board_get_desc(machine));
+
+    Object *peripheral = cm_container_get_peripheral();
+}
+
+static QEMUMachine stm32l432kc_machine = {
+    .name = "STM32L432KC",
+    .desc = "STM32L432KC Board for Zepyhr_SocketCan",
+    .init = stm32l432kc_board_init_callback };
+
+static void stm32l152xe_board_init_callback(MachineState *machine)
+{
+    cm_board_greeting(machine);
+
+    {
+        Object *mcu = cm_object_new_mcu(machine, TYPE_STM32L152XE);
+
+        cm_object_property_set_int(mcu, 8000000, "hse-freq-hz");
+        cm_object_property_set_int(mcu, 32768, "lse-freq-hz");
+
+        cm_object_realize(mcu);
+    }
+
+    void *board_surface = cm_board_init_image("STM32F429I-Discovery.jpg",
+            cm_board_get_desc(machine));
+
+    Object *peripheral = cm_container_get_peripheral();
+}
+
+static QEMUMachine stm32l152xe_machine = {
+    .name = "STM32L152XE",
+    .desc = "STM32L152XE Board for XML_Parser",
+    .init = stm32l152xe_board_init_callback };
+
+static void stm32f429zit6u_board_init_callback(MachineState *machine)
+{
+    cm_board_greeting(machine);
+
+    {
+        Object *mcu = cm_object_new_mcu(machine, TYPE_STM32F429ZIT6U);
+
+        cm_object_property_set_int(mcu, 8000000, "hse-freq-hz");
+        cm_object_property_set_int(mcu, 32768, "lse-freq-hz");
+
+        cm_object_realize(mcu);
+    }
+
+    void *board_surface = cm_board_init_image("STM32F429I-Discovery.jpg",
+            cm_board_get_desc(machine));
+
+    Object *peripheral = cm_container_get_peripheral();
+}
+
+static QEMUMachine stm32f429zit6u_machine = {
+    .name = "STM32F429ZIT6U",
+    .desc = "STM32F429ZIT6U Board for utasker_MODBUS and utasker_USB",
+    .init = stm32f429zit6u_board_init_callback };
+
 #if 0
 /* ----- ST STM32F3-Discovery ----- */
 static void
@@ -419,10 +539,14 @@ static void stm32_machines_init(void)
     qemu_register_machine(&stm32f4_discovery_machine);
     qemu_register_machine(&stm32f4_discovery2_machine);
     qemu_register_machine(&stm32f429i_discovery_machine);
-    // Bo
     qemu_register_machine(&nxp_lpc4330_machine);
     qemu_register_machine(&arduino_due_machine);
     qemu_register_machine(&frdm_k64f_machine);
+    qemu_register_machine(&stm32f103re_machine);
+    qemu_register_machine(&stm32l431_machine);
+    qemu_register_machine(&stm32l432kc_machine);
+    qemu_register_machine(&stm32l152xe_machine);
+    qemu_register_machine(&stm32f429zit6u_machine);
 #if 0
     qemu_register_machine(&stm32f3_discovery_machine);
     qemu_register_machine(&stm32f0_discovery_machine);
