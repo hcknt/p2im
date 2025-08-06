@@ -345,7 +345,7 @@ LIBICONV_VERSION="1.14" # 2011-08-07
 
 LIBICONV_FOLDER="libiconv-${LIBICONV_VERSION}"
 LIBICONV_ARCHIVE="${LIBICONV_FOLDER}.tar.gz"
-LIBICONV_URL="http://ftp.gnu.org/pub/gnu/libiconv/${LIBICONV_ARCHIVE}"
+LIBICONV_URL="https://ftp.gnu.org/pub/gnu/libiconv/${LIBICONV_ARCHIVE}"
 
 
 # http://ftp.gnu.org/pub/gnu/gettext/
@@ -463,15 +463,15 @@ then
   echo "Check/Preload Docker images..."
 
   echo
-  docker run --interactive --tty ilegeul/debian32:8-gnuarm-gcc-x11-v3 \
+  docker run --interactive --tty xgandiaga/debian32:8-gnuarm-gcc-x11-v2 \
   lsb_release --description --short
 
   echo
-  docker run --interactive --tty ilegeul/debian:8-gnuarm-gcc-x11-v3 \
+  docker run --interactive --tty xgandiaga/debian:8-gnuarm-gcc-x11-v3 \
   lsb_release --description --short
 
   echo
-  docker run --interactive --tty ilegeul/debian:8-gnuarm-mingw \
+  docker run --interactive --tty xgandiaga/debian:8-gnuarm-mingw-v2 \
   lsb_release --description --short
 
   echo
@@ -495,14 +495,13 @@ then
   # Be sure it will not crash on errors, in case the images are already there.
   set +e
 
-  docker build --tag "ilegeul/debian32:8-gnuarm-gcc-x11-v3" \
-  https://github.com/ilg-ul/docker/raw/master/debian32/8-gnuarm-gcc-x11-v3/Dockerfile
+  docker build --tag "xgandiaga/debian32:8-gnuarm-gcc-x11-v2" \
+  https://github.com/xgandiaga/DRIVERS/tree/main/debian32/8-gnuarm-gcc-x11-v3
+  docker build --tag "xgandiaga/debian:8-gnuarm-gcc-x11-v3" \
+  https://github.com/xgandiaga/DRIVERS/tree/main/debian/8-gnuarm-gcc-x11-v3/Dockerfile
 
-  docker build --tag "ilegeul/debian:8-gnuarm-gcc-x11-v3" \
-  https://github.com/ilg-ul/docker/raw/master/debian/8-gnuarm-gcc-x11-v3/Dockerfile
-
-  docker build --tag "ilegeul/debian:8-gnuarm-mingw" \
-  https://github.com/ilg-ul/docker/raw/master/debian/8-gnuarm-mingw/Dockerfile
+  docker build --tag "xgandiaga/debian:8-gnuarm-mingw-v2" \
+  https://github.com/xgandiaga/DRIVERS/tree/main/debian/8-gnuarm-mingw/Dockerfile
 
   docker images
 
@@ -619,7 +618,7 @@ do_repo_action() {
 
     exit 0
   else
-	echo "No git folder."
+  echo "No git folder."
     exit 1
   fi
 
@@ -2236,14 +2235,15 @@ if [ ! -f "${build_folder_path}/${APP_LC_NAME}/config-host.mak" ]
 then
 
   echo
-  echo "Running QEMU configure..."
+  echo "Running QEMU configure, the file is qemu/build_scripts/build-qemu.sh ..."
 
   # All variables are passed on the command line before 'configure'.
   # Be sure all these lines end in '\' to ensure lines are concatenated.
 
   if [ "${target_name}" == "win" ]
   then
-
+    echo
+    echo "Target is windows..."
     # Windows target, 32/64-bit
     cd "${build_folder_path}/${APP_LC_NAME}"
 
@@ -2267,7 +2267,8 @@ then
 
   elif [ "${target_name}" == "debian" ]
   then
-
+    echo
+    echo "Target is Debian..."
     # Linux target
     cd "${build_folder_path}/${APP_LC_NAME}"
 
@@ -2291,6 +2292,9 @@ then
       \
       --with-sdlabi="${LIBSDL_ABI}" \
     | tee "${output_folder_path}/configure-output.txt"
+
+    echo
+    echo "Previous command should have called ./configure..."
 
   elif [ "${target_name}" == "osx" ]
   then
@@ -2318,6 +2322,8 @@ then
 
   fi
 
+  echo
+  echo "Running cd..."
   cd "${build_folder_path}/${APP_LC_NAME}"
   cp config.* "${output_folder_path}"
 
@@ -2328,8 +2334,9 @@ fi
 if [ ! \( -f "${build_folder_path}/${APP_LC_NAME}/gnuarmeclipse-softmmu/qemu-system-gnuarmeclipse" \) -a \
      ! \( -f "${build_folder_path}/${APP_LC_NAME}/gnuarmeclipse-softmmu/qemu-system-gnuarmeclipse.exe" \) ]
 then
-
+  
   echo
+  echo "Within full build, with documentation"
   echo "Running QEMU make all..."
 
   cd "${build_folder_path}/${APP_LC_NAME}"
@@ -2341,7 +2348,7 @@ fi
 # ----- Full install, including documentation. -----
 
 echo
-echo "Running QEMU make install..."
+echo "Running QEMU make install a dorito..."
 
 # Always clear the destination folder, to have a consistent package.
 rm -rf "${install_folder}/${APP_LC_NAME}"
@@ -2354,8 +2361,14 @@ make "${jobs}" install install-pdf
 # cd "${build_folder_path}/${APP_LC_NAME}/pixman"
 # make install
 
+echo
+echo "dorito ends successfully"
+
 
 # Remove useless files
+
+echo
+echo "starting useless file erasure"
 
 # rm -rf "${install_folder}/${APP_LC_NAME}/etc"
 
@@ -2714,7 +2727,7 @@ then
   do_host_build_target "Creating Windows 64-bits setup..." \
     --target-name win \
     --target-bits 64 \
-    --docker-image "ilegeul/debian:8-gnuarm-mingw-v2"
+    --docker-image "xgandiaga/debian:8-gnuarm-mingw-v2"
 fi
 
 # ----- Build the Windows 32-bits distribution. -----
@@ -2724,7 +2737,7 @@ then
   do_host_build_target "Creating Windows 32-bits setup..." \
     --target-name win \
     --target-bits 32 \
-    --docker-image "ilegeul/debian:8-gnuarm-mingw-v2"
+    --docker-image "xgandiaga/debian:8-gnuarm-mingw-v2"
 fi
 
 # ----- Build the Debian 64-bits distribution. -----
@@ -2734,7 +2747,7 @@ then
   do_host_build_target "Creating Debian 64-bits archive..." \
     --target-name debian \
     --target-bits 64 \
-    --docker-image "ilegeul/debian:8-gnuarm-gcc-x11-v4"
+    --docker-image "xgandiaga/debian:8-gnuarm-gcc-x11-v3"
 fi
 
 # ----- Build the Debian 32-bits distribution. -----
@@ -2744,7 +2757,7 @@ then
   do_host_build_target "Creating Debian 32-bits archive..." \
     --target-name debian \
     --target-bits 32 \
-    --docker-image "ilegeul/debian32:8-gnuarm-gcc-x11-v4"
+    --docker-image "xgandiaga/debian32:8-gnuarm-gcc-x11-v2"
 fi
 
 # echo "4|$@|"
