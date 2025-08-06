@@ -11,6 +11,11 @@ declare -A firmware_info=(
     # ["Robot"]="NUCLEO-F103RB STM32F103RB"
     # ["Steering_Control"]="Arduino-Due SAM3X8E"
     ["3Dprinter"]="STM32F103RE STM32F103RE"
+    ["LiteOS_IoT"]="STM32L431 STM32L431"
+    ["Zepyhr_SocketCan"]="STM32L432KC STM32L432KC"
+    ["XML_Parser"]="STM32L152XE STM32L152XE"
+    ["utasker_MODBUS"]="STM32F429ZIT6U STM32F429ZIT6U"
+    ["utasker_USB"]="STM32F429ZIT6U STM32F429ZIT6U"
 )
 
 REPO_PATH="/p2im"
